@@ -221,7 +221,34 @@ fig.tight_layout()
 
 <img src="https://s1.ax1x.com/2020/11/01/BwvCse.png" width="800" align="bottom" />
 
+``` python
 
+fig, axes = plt.subplots(2, 5, figsize=(12, 3), sharex=True,    sharey=True)  
+
+fig.suptitle('墨尔本1981年至1990年月温度曲线',  size=14 )  
+
+ex1=pd.read_csv('./data/layout_ex1.csv')
+
+# 处理数据
+
+year= 1981
+for i in range(2):
+    for j in range(5):
+        ax=axes[i,j]
+        ax.set_title("%d year" % year)
+        year+=1
+        
+        start=(i*5+j)*12
+        
+        ax.plot(range(1,13),ex1.iloc[start:start+12]['Temperature'],marker="*")
+
+        ax.set_xticks(range(1,13))
+
+
+fig.tight_layout()
+
+
+```
 
 -  画出数据的散点图和边际分布
 
@@ -229,8 +256,26 @@ fig.tight_layout()
 
 <img src="https://s1.ax1x.com/2020/11/01/B0pEnS.png" width="400" height="400" align="bottom" />
 
+``` python
+data=np.random.randn(2,150)
 
+fig=plt.figure(figsize=(7,7))
+spec = fig.add_gridspec(nrows=10,ncols=10)
 
+axs1 = fig.add_subplot(spec[:2, :8])
+axs1.hist(data[0],rwidth=0.9)
+axs1.axis('off')
 
+axs2 = fig.add_subplot(spec[2:, :8])
+axs2.scatter(data[0], data[1])
+axs2.grid(True)
+axs2.set_xlabel('data_x') 
+axs2.set_ylabel('data_y')
 
+axs3 = fig.add_subplot(spec[2:, 8:])
+axs3.hist(data[1],rwidth=0.9,orientation='horizontal')
+axs3.axis('off')
+
+fig.tight_layout()
+```
 
